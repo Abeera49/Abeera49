@@ -1,0 +1,197 @@
+/* ==========================================================
+   master.css  |  Project 1: Static Webpage Design
+   Rules: external file only, no inline styles, no IDs for
+   styling, BEM naming, Grid for page, Flexbox for components.
+   ========================================================== */
+
+/* ---------- 1. Design tokens (DRY: change once, updates everywhere) ---------- */
+:root {
+  --color-navy: #0e2852;
+  --color-navy-deep: #081a38;
+  --color-blueprint: #1d4f91;
+  --color-orange: #b93d08;       /* white text on this = 5.6:1 */
+  --color-orange-dark: #962f04;
+  --color-ink: #14213d;          /* on --color-paper = 15:1 */
+  --color-muted: #44536d;        /* on --color-paper = 7:1 */
+  --color-paper: #f4f7fb;
+  --color-tint: #e3ecf7;
+  --color-white: #ffffff;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --header-height: 80px;
+  --content-width: 1200px;
+  --gutter: 24px;
+  --row-gap: 60px;
+  --section-pad: 120px;
+  --radius: 4px;
+}
+
+/* ---------- 2. Reset / base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-height); }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  background: var(--color-paper);
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible { outline: 3px solid var(--color-orange); outline-offset: 3px; }
+
+/* ---------- 3. Layout primitives ---------- */
+.container {
+  width: min(var(--content-width), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute; left: var(--gutter); top: -100px;
+  padding: 0.75rem 1rem; background: var(--color-white); color: var(--color-ink); z-index: 20;
+}
+.skip-link:focus { top: 8px; }
+
+/* ---------- 4. Header (Flexbox: micro alignment) ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  height: var(--header-height);
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+.site-header__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 100%;
+  width: min(var(--content-width), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.logo { display: flex; align-items: center; gap: 0.75rem; color: inherit; text-decoration: none; }
+.logo__mark {
+  display: grid; place-items: center;
+  width: 40px; height: 40px;
+  background: var(--color-orange); border-radius: var(--radius);
+  font: 700 1.5rem/1 var(--font-display);
+}
+.logo__text { font: 700 1.5rem/1 var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; }
+
+.nav__list { display: flex; gap: 0.25rem; }
+.nav__link {
+  display: block; padding: 0.625rem 1rem;
+  color: var(--color-white); text-decoration: none; font-weight: 500;
+  border-radius: var(--radius);
+}
+.nav__link:hover { background: var(--color-blueprint); }
+
+/* ---------- 5. Buttons (BEM: base + modifier) ---------- */
+.button {
+  display: inline-block;
+  padding: 1rem 1.75rem;
+  border-radius: var(--radius);
+  font: 700 1.125rem/1 var(--font-display);
+  letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+}
+.button--primary { background: var(--color-orange); color: var(--color-white); }
+.button--primary:hover { background: var(--color-orange-dark); }
+
+/* ---------- 6. Hero ---------- */
+.hero {
+  position: relative; isolation: isolate;
+  display: grid; align-items: center;
+  min-height: 100vh;
+  padding-block: var(--section-pad);
+  background: var(--color-navy-deep);
+  color: var(--color-white);
+  overflow: hidden;
+}
+.hero__media { position: absolute; inset: 0; z-index: -1; }
+.hero__img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+.hero__container {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem;
+  width: min(var(--content-width), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.hero__eyebrow { font: 600 1rem/1 var(--font-display); letter-spacing: 0.18em; text-transform: uppercase; color: #ffb48a; }
+.hero__title { max-width: 16ch; font-size: clamp(2.75rem, 7vw, 5.5rem); font-weight: 700; text-transform: uppercase; }
+.hero__text { max-width: 52ch; font-size: 1.25rem; }
+
+/* ---------- 7. Sections ---------- */
+.section { padding-block: var(--section-pad); }
+.section--tint { background: var(--color-tint); }
+.section__title { font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; }
+.section__intro { margin-top: 1rem; max-width: 60ch; color: var(--color-muted); }
+
+/* ---------- 8. Content grid (CSS Grid: macro structure) ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--row-gap) var(--gutter);
+  margin-top: 3rem;
+}
+.card {
+  grid-column: span 3;             /* 4 cards per row on desktop */
+  display: flex; flex-direction: column;
+  background: var(--color-white);
+  border: 1px solid #c9d6e8; border-radius: var(--radius);
+  overflow: hidden;
+}
+.card__img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.card__body { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem; }
+.card__title { font-size: 1.5rem; }
+.card__text { color: var(--color-muted); }
+
+/* ---------- 9. Steps (Flexbox) ---------- */
+.steps { display: flex; gap: var(--gutter); margin-top: 3rem; counter-reset: step; }
+.steps__item {
+  flex: 1; display: flex; flex-direction: column; gap: 0.5rem;
+  padding: 1.5rem; background: var(--color-white);
+  border-top: 4px solid var(--color-blueprint);
+  counter-increment: step;
+}
+.steps__title::before { content: counter(step) ". "; color: var(--color-orange); }
+.steps__title { font-size: 1.75rem; text-transform: uppercase; }
+.steps__text { color: var(--color-muted); }
+
+/* ---------- 10. Footer (400px) ---------- */
+.site-footer {
+  min-height: 400px;
+  padding-block: 80px 32px;
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+.site-footer__inner { display: flex; flex-direction: column; justify-content: space-between; min-height: 288px; gap: 3rem; }
+.contact__title { font-size: 2rem; text-transform: uppercase; margin-bottom: 1.5rem; }
+.contact__list { display: flex; flex-direction: column; gap: 0.75rem; font-style: normal; }
+.contact__item { display: flex; gap: 1rem; }
+.contact__label { min-width: 5rem; font-weight: 500; color: #ffb48a; }
+.site-footer__legal { font-size: 0.9375rem; color: #c5d3ea; }
+
+/* ---------- 11. Responsive ---------- */
+@media (max-width: 1024px) {
+  :root { --section-pad: 80px; }
+  .card { grid-column: span 4; }   /* 3 per row */
+}
+@media (max-width: 820px) {
+  .card { grid-column: span 6; }   /* 2 per row */
+  .steps { flex-direction: column; }
+}
+@media (max-width: 560px) {
+  :root { --section-pad: 56px; --row-gap: 32px; }
+  .card { grid-column: span 12; }  /* 1 per row */
+  .site-header__inner { gap: 0.5rem; }
+  .logo__text { display: none; }
+  .nav__list { gap: 0; }
+  .nav__link { padding: 0.625rem 0.375rem; font-size: 0.9375rem; }
+  .contact__item { flex-direction: column; gap: 0.125rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
