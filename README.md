@@ -15,6 +15,8 @@ I am a Software Engineering student passionate about software development and em
 | Artificial Intelligence | AI & Machine Learning |
 
 ## Featured Projects
+### Online Shopping Website
+Using HTML CSS at Frontend and JavaScript at backend
 
 ### E-Commerce Book Store
 A C# and SQL-based e-commerce book store project developed using object-oriented programming and database concepts.
@@ -31,5 +33,5 @@ Currently pursuing a degree in Software Engineering.
 ## Contact
 
 - **Email:** abeeramumtaz32@gmail.com
-- **LinkedIn:** Your LinkedIn Profile
+- **LinkedIn:** https://www.linkedin.com/in/abeera-mumtaz-978236385?utm_source=share_via&utm_content=profile&utm_medium=member_android
 - **GitHub:** https://github.com/Abeera48
